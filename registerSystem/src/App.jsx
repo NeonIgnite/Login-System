@@ -5,7 +5,7 @@ import Login from './components/Login'
 
 
 function App() {
-  const [active , setActive] = useState('');
+  const [active , setActive] = useState('Login');
 
   useEffect(()=>{
       console.log('active Btn changed to :' + active);
@@ -14,12 +14,12 @@ function App() {
   return (
     <div className="col-12 d-flex flex-column justify-content-center align-items-center my-5">
       <div className="operationBtn d-flex gap-3">
-          <button className='btn btn-info p-3' onClick={()=>{setActive('Login')}}>Login</button>
-          <button className='btn btn-light p-3' onClick={()=>{setActive('Register')}}>Register</button>
+          <button className='btn btn-primary p-3' onClick={()=>{setActive('Login')}}>Login</button>
+          <button className='btn btn-primary p-3' onClick={()=>{setActive('Register')}}>Register</button>
       </div>
-      <div>
+      <div className='col-8 d-flex justify-content-center'>
         {
-          active == 'Login' ? <h1>{active}</h1> : <h1>{active}</h1>
+          active == 'Login' ? <Login/> : <Register/> 
         }
       </div>
 

@@ -12,20 +12,21 @@ function App() {
   },[active])
 
   return (
-    <div className="col-12 d-flex flex-column justify-content-center align-items-center my-5">
-      <div className="operationBtn d-flex gap-3">
-          <button className='btn btn-primary p-3' onClick={()=>{setActive('Login')}}>Login</button>
-          <button className='btn btn-primary p-3' onClick={()=>{setActive('Register')}}>Register</button>
-      </div>
-      <div className='col-8 d-flex justify-content-center'>
-        {
-          active == 'Login' ? <Login/> : <Register/> 
-        }
-      </div>
+    <div className="wrapper col-12 m-0 p-2">
+      <div className="col-12 d-flex flex-column justify-content-center align-items-center p-2">
+        <div className="operationBtn d-flex gap-3 col-6 justify-content-center">
+            <button className='btn btn-primary p-3 w-25' onClick={()=>{setActive('Login')}}>Login</button>
+            <button className='btn btn-primary p-3 w-25' onClick={()=>{setActive('Register')}}>Register</button>
+        </div>
+        <div className='col-8 d-flex justify-content-center'>
+          {
+            active == 'Login' ? <Login/> : <Register/> 
+          }
+        </div>
 
-      {/* <Register></Register>
-      <Login></Login> */}
+      </div>
     </div>
+    
   )
 }
 

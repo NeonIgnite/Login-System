@@ -57,6 +57,9 @@ export default function Register() {
         rePasswordRegex.test(rePasswordValue) ? newUser.rePassword=rePasswordValue : newError.rePassword='rePassword invalid';
         setError(newError);
         setUsers(newUser);
+        let usersArray = []
+        usersArray.push(newUser);
+        localStorage.setItem('userData', JSON.stringify(usersArray));
       }
     }
     alert('User Added');

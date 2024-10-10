@@ -1,19 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState, useRef } from 'react';
 
 import { faFacebookF, faGoogle, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Login() {
-  const inputUsernameRef = useRef('');
-  const inputPasswordRef = useRef('');
-
   const [error, setError] = useState({})
   const [users, setUsers] = useState({})
   const [isChecked , setIsChecked] = useState(false);
 
   const newUser = {}
   const newError = {}
+
+  const inputUsernameRef = useRef('');
+  const inputPasswordRef = useRef('');
+
+  // useEffect(()=>{
+  //   console.log(error);
+  //   console.log(users);
+  // },[error,users])
+
+
+
   
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
@@ -25,15 +33,27 @@ export default function Login() {
     const passwordValue = inputPasswordRef.current.value;
 
     const nameRegex = /^[a-zA-Z0-9._-]+$/;
-    const passwordRegex = /^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (usernameValue == '' || passwordValue == '') {
       alert('you must enter a value');
     } else {
       nameRegex.test(usernameValue) ? newUser.username = usernameValue : newError.username = 'name invalid';
       passwordRegex.test(passwordValue) ? newUser.password = passwordValue : newError.password = 'password invalid';
+      const storedUser = JSON.parse(localStorage.getItem('userData'));
+      
+      storedUser.forEach(user => {
+        if(user.username == usernameValue && user.password == passwordValue ){
+          console.log(`Hello ${usernameValue} welcome to Login system`)
+        }
+        else{
+          console.error('sorry you dont Have account please Register')
+        }
+      });
+      
       setUsers(newUser)
       setError(newError)
+      
     }
   }
   return (
@@ -49,10 +69,9 @@ export default function Login() {
         <h1 className='fs-6'>or:</h1>
       </div>
       <form className='d-flex flex-column gap-2' onSubmit={handelSubmit}>
-        <input className='form-control' type="text" placeholder='Username..' name="username" ref={inputUsernameRef} />
+        <input className='form-control' type="text" placeholder='john_Doe'  name="username" ref={inputUsernameRef}  />
         {error.username ? <p className='text-danger fw-bolder fst-italic '>{error.username}</p>: null}
-
-        <input className='form-control' type="text" placeholder='Password..' name="password" ref={inputPasswordRef} />
+        <input className='form-control' type="password" placeholder='Password..'  name="password" ref={inputPasswordRef} />
         {error.password ? <p className='text-danger fw-bolder fst-italic'>{error.password}</p>: null}
 
         <div className="terms d-flex justify-content-center gap-1">
